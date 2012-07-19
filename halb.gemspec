@@ -1,10 +1,13 @@
 Gem::Specification.new do |s|
   s.name        = "halb"
-  s.version     = 1
+  s.version     = '0.2.0'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["TeamIguana"]
+  s.summary     = 'Manage deploys behind HA.D/LDirector/LVS Load Balancers'
+  s.homepage    = 'https://github.com/TeamIguana/halb'
 
   s.add_runtime_dependency('rake')
+  s.add_runtime_dependency('net-ssh')
 
   s.add_development_dependency('mocha')
   s.add_development_dependency('test-unit')
