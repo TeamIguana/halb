@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    halb (0.2.0)
+    halb (0.3.0)
       net-ssh
       rake
 

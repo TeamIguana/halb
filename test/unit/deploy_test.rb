@@ -7,7 +7,7 @@ module Halb
       load_balancers=[@active_lb, FakeLoadBalancer.new(false)]
       all_machines = {'machine1' => '10.1.0.111', 'machine2' => '10.1.0.222'}
       Socket.stubs(:gethostname).returns('machine1')
-      @deploy=Deploy.new(load_balancers, all_machines)
+      @deploy=Deploy.with(load_balancers, all_machines)
     end
 
     def test_remove_from_production
