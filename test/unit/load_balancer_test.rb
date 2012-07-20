@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_case'))
+require File.dirname(__FILE__) + '/../test_case'
 
 module Halb
   class LoadBalancerTest < Test::Unit::TestCase
@@ -10,16 +10,16 @@ module Halb
       @load_balancer.output[LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND] = ['output of ipvsadm says: ip_to_remove:80 is still there', 'ip_to_remove:81 up']
       @load_balancer.expects(:sleep).once
       @load_balancer.put_in_maintenance("ip_to_remove")
-      assert_equal(1, @load_balancer.call_count(/touch (.*)ip_to_remove:80/))
-      assert_equal(2, @load_balancer.call_count(LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND))
+      assert_equal 1, @load_balancer.call_count(/touch (.*)ip_to_remove:80/)
+      assert_equal 2, @load_balancer.call_count(LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND)
     end
 
     def test_remove_from_maintenance
       @load_balancer.output[LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND] = ['ip_to_insert:81 is here', 'output of ipvsadm says: ip_to_insert:80 now is there']
       @load_balancer.expects(:sleep).once
       @load_balancer.remove_from_maintenance("ip_to_insert")
-      assert_equal(1, @load_balancer.call_count(/rm (.*)ip_to_insert:80/))
-      assert_equal(2, @load_balancer.call_count(LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND))
+      assert_equal 1, @load_balancer.call_count(/rm (.*)ip_to_insert:80/)
+      assert_equal 2, @load_balancer.call_count(LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND)
     end
 
     def test_ssh_connection
@@ -36,7 +36,7 @@ module Halb
     def test_not_active
       output = 'IP Virtual Server version 1.2.1 (size=4096)'
       @load_balancer.output[LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND] = [output]
-      assert_false(@load_balancer.active?)
+      assert_false @load_balancer.active?
     end
 
     def test_active
@@ -45,7 +45,7 @@ module Halb
     TCP  10.1.0.50:80 sh
       EOF
       @load_balancer.output[LoadBalancer::SHOW_ACTIVE_HOSTS_COMMAND] = [output]
-      assert_true(@load_balancer.active?)
+      assert_true @load_balancer.active?
     end
   end
 

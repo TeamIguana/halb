@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), '..', 'test_case'))
+require File.dirname(__FILE__) + '/../test_case'
 
 module Halb
   class DeployTest < Test::Unit::TestCase
@@ -12,12 +12,12 @@ module Halb
 
     def test_remove_from_production
       @deploy.remove_from_production
-      assert_equal('10.1.0.111', @active_lb.called_with[:put_in_maintenance])
+      assert_equal '10.1.0.111', @active_lb.called_with[:put_in_maintenance]
     end
 
     def test_put_into_production
       @deploy.put_into_production
-      assert_equal('10.1.0.111', @active_lb.called_with[:remove_from_maintenance])
+      assert_equal '10.1.0.111', @active_lb.called_with[:remove_from_maintenance]
     end
   end
 
