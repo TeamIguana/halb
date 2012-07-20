@@ -25,11 +25,11 @@ module Halb
     def test_ssh_connection
       Net::SSH.expects(:start).with do |host, user, keys, &block|
               assert_equal('fake_host', host)
-              assert_equal('root', user)
+              assert_equal('a_user', user)
               assert_equal({keys: ['ssh_key']}, keys)
               true
             end
-      real_load_balancer = LoadBalancer.new('fake_host', 'root', ['ssh_key'])
+      real_load_balancer = LoadBalancer.new('fake_host', 'a_user', ['ssh_key'])
       real_load_balancer.open_connection{}
     end
 
@@ -53,7 +53,7 @@ module Halb
     attr_accessor :output
 
     def initialize
-      super('fake_host', 'root', ['ssh_key'])
+      super('fake_host', 'a_user', ['ssh_key'])
       @commands=[]
       @output={}
     end

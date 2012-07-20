@@ -45,7 +45,7 @@ module Halb
     end
 
     def open_connection(&block)
-      Net::SSH.start(@host, 'root', :keys => @ssh_keys, &block)
+      Net::SSH.start(@host, @user, :keys => @ssh_keys, &block)
     end
   end
 end
