@@ -1,6 +1,5 @@
 HALB, the High Availability Load Balancer gem
-
-***
+====================
 
 It provides Ruby classes to control the maintenance state of machines behind HA.D/LDirector/LVS Load Balancers.
 
