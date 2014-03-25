@@ -3,7 +3,7 @@ HALB, the High Availability Load Balancer gem
 <img src="https://secure.travis-ci.org/TeamIguana/halb.png" alt="Build Status" />
 
 
-It provides Ruby classes to control the maintenance state of machines behind HA.D/LDirector/LVS Load Balancers.
+It provides Ruby classes to control the maintenance state of machines behind HA.D/LDirector/LVS/HAProxy Load Balancers.
 
 In the future we are planning to provide also integration with Capistrano.
 
