@@ -29,7 +29,7 @@ module Halb
     end
 
     def test_active
-      @load_balancer.output['hostname'] = ['fake_host']
+      @load_balancer.output['hostname'] = ["fake_host\n"]
       assert_true @load_balancer.active?
       assert_equal '10.0.0.1', @load_balancer.last_connection_host
     end

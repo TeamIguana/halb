@@ -10,7 +10,7 @@ module Halb
     end
 
     def active?
-      get_output_of(@cluster_ip, 'hostname') == @host
+      get_output_of(@cluster_ip, 'hostname').strip == @host
     end
 
     def in_maintenance_command(machine)
