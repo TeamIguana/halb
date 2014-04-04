@@ -7,19 +7,20 @@ module Halb
     end
 
     def test_put_in_maintenance
-      @load_balancer.output[LoadBalancer.show_active_hosts_command] = ['output of ipvsadm says: ip_to_remove:80 is still there', 'ip_to_remove:81 up']
+      assert_equal 'ipvsadm -l -n', @load_balancer.show_active_hosts_command
+      @load_balancer.output[@load_balancer.show_active_hosts_command] = ['output of ipvsadm says: ip_to_remove:80 is still there', 'ip_to_remove:81 up']
       @load_balancer.expects(:sleep).once
       @load_balancer.put_in_maintenance("ip_to_remove")
       assert_equal 1, @load_balancer.call_count(/touch (.*)ip_to_remove:80/)
-      assert_equal 2, @load_balancer.call_count(LoadBalancer.show_active_hosts_command)
+      assert_equal 2, @load_balancer.call_count(@load_balancer.show_active_hosts_command)
     end
 
     def test_remove_from_maintenance
-      @load_balancer.output[LoadBalancer.show_active_hosts_command] = ['ip_to_insert:81 is here', 'output of ipvsadm says: ip_to_insert:80 now is there']
+      @load_balancer.output[@load_balancer.show_active_hosts_command] = ['ip_to_insert:81 is here', 'output of ipvsadm says: ip_to_insert:80 now is there']
       @load_balancer.expects(:sleep).once
       @load_balancer.remove_from_maintenance("ip_to_insert")
       assert_equal 1, @load_balancer.call_count(/rm (.*)ip_to_insert:80/)
-      assert_equal 2, @load_balancer.call_count(LoadBalancer.show_active_hosts_command)
+      assert_equal 2, @load_balancer.call_count(@load_balancer.show_active_hosts_command)
     end
 
     def test_ssh_connection
@@ -35,7 +36,7 @@ module Halb
 
     def test_not_active
       output = 'IP Virtual Server version 1.2.1 (size=4096)'
-      @load_balancer.output[LoadBalancer.show_active_hosts_command] = [output]
+      @load_balancer.output[@load_balancer.show_active_hosts_command] = [output]
       assert_false @load_balancer.active?
     end
 
@@ -44,7 +45,7 @@ module Halb
     IP Virtual Server version 1.2.1 (size=4096)
     TCP  10.1.0.50:80 sh
       EOF
-      @load_balancer.output[LoadBalancer.show_active_hosts_command] = [output]
+      @load_balancer.output[@load_balancer.show_active_hosts_command] = [output]
       assert_true @load_balancer.active?
     end
   end

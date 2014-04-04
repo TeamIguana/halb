@@ -5,8 +5,9 @@ module Halb
       @cluster_ip, @proxy_names = cluster_ip, proxy_names
     end
 
-    def self.show_active_hosts_command
-      'echo "show stat -1" | socat stdio /tmp/haproxy.sock | grep \',UP\''
+    def show_active_hosts_command
+      proxy_names_expression = @proxy_names.join('|')
+      "'echo 'show stat -1' | socat stdio /tmp/haproxy.sock | grep -P '(#{proxy_names_expression}).*,UP'"
     end
 
     def active?

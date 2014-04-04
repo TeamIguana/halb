@@ -1,11 +1,11 @@
 module Halb
   class LoadBalancer < AbstractLoadBalancer
-    def self.show_active_hosts_command
+    def show_active_hosts_command
       'ipvsadm -l -n'
     end
 
     def active?
-      !/TCP[ ]+\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/.match(get_output_of(self.class.show_active_hosts_command)).nil?
+      !/TCP[ ]+\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}/.match(get_output_of(show_active_hosts_command)).nil?
     end
 
     def in_maintenance_command(service_endpoint)
