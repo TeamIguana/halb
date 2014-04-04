@@ -17,13 +17,13 @@ module Halb
     def put_in_maintenance(machine)
       service_endpoint=service_endpoint_for(machine)
       perform(:command => in_maintenance_command(service_endpoint),
-              :exit_when => lambda { |ssh| !ssh.exec!(show_active_hosts_command).include?(service_endpoint) })
+              :exit_when => lambda { |ssh| !ssh.exec!(show_active_hosts_command).to_s.include?(service_endpoint) })
     end
 
     def remove_from_maintenance(host)
       service_endpoint = service_endpoint_for(host)
       perform(:command => out_of_maintenance_command(service_endpoint),
-              :exit_when => lambda { |ssh| ssh.exec!(show_active_hosts_command).include?(service_endpoint) })
+              :exit_when => lambda { |ssh| ssh.exec!(show_active_hosts_command).to_s.include?(service_endpoint) })
     end
 
     def perform(params)

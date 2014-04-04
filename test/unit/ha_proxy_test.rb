@@ -23,6 +23,15 @@ module Halb
       assert_equal 2, @load_balancer.call_count(@load_balancer.show_active_hosts_command)
     end
 
+    def test_put_and_remove_with_ssh_command_that_returns_nil
+      @load_balancer.stubs(:sleep)
+      @load_balancer.output[@load_balancer.show_active_hosts_command] = [nil, still_in_balancer_response_for('host_to_put_in_lb')]
+      @load_balancer.remove_from_maintenance("host_to_put_in_lb")
+
+      @load_balancer.output[@load_balancer.show_active_hosts_command] = [still_in_balancer_response_for('host_to_remove_from_lb'), nil]
+      @load_balancer.put_in_maintenance("host_to_remove_from_lb")
+    end
+
     def test_not_active
       @load_balancer.output['hostname'] = ['other_host']
       assert_false @load_balancer.active?
