@@ -18,7 +18,7 @@ This gem manages the maintenace mode of servers using this kind of load balancer
 
 HAProxy
 ======
-HAProxy is instructed to put or remove a server from maintinance mode sending a command to it through a socket file.
+HAProxy is instructed to put or remove a server from maintenance mode sending a command to it through a socket file.
 
 Example with HAProxy
 ============
