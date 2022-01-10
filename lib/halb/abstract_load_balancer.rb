@@ -2,13 +2,13 @@ require 'net/ssh'
 
 module Halb
   class AbstractLoadBalancer
-    def initialize(host, user, ssh_keys)
-      @host, @user, @ssh_keys = host, user, ssh_keys
+    def initialize(fqdn, user, ssh_keys)
+      @fqdn, @user, @ssh_keys = fqdn, user, ssh_keys
     end
 
-    def get_output_of(host=@host, command)
+    def get_output_of(fqdn=@fqdn, command)
       output=''
-      open_connection(host) do |ssh|
+      open_connection(fqdn) do |ssh|
         output=ssh.exec!(command)
       end
       output
@@ -36,8 +36,8 @@ module Halb
       end
     end
 
-    def open_connection(host=@host, &block)
-      Net::SSH.start(host, @user, :keys => @ssh_keys, &block)
+    def open_connection(fqdn=@fqdn, &block)
+      Net::SSH.start(fqdn, @user, :keys => @ssh_keys, &block)
     end
   end
 end

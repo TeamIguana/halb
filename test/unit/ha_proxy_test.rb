@@ -33,13 +33,13 @@ module Halb
     end
 
     def test_not_active
-      @load_balancer.output['hostname'] = ['other_host']
+      @load_balancer.output['hostname --fqdn'] = ['other_host.example.com']
       assert_false @load_balancer.active?
       assert_equal '10.0.0.1', @load_balancer.last_connection_host
     end
 
     def test_active
-      @load_balancer.output['hostname'] = ["fake_host\n"]
+      @load_balancer.output['hostname --fqdn'] = ["fake_host.example.com\n"]
       assert_true @load_balancer.active?
       assert_equal '10.0.0.1', @load_balancer.last_connection_host
     end
@@ -65,7 +65,7 @@ module Halb
     include FakeConnectionModule
 
     def initialize
-      super('fake_host', 'a_user', ['ssh_key'], '10.0.0.1', ['pxname1','pxname2'])
+      super('fake_host.example.com', 'a_user', ['ssh_key'], '10.0.0.1', ['pxname1','pxname2'])
     end
   end
 end

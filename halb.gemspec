@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = "halb"
-  s.version     = '0.5.1'
+  s.version     = '0.6.1'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["TeamIguana"]
   s.summary     = 'Manage deploys behind HA.D/LDirector/LVS/HAProxy Load Balancers'

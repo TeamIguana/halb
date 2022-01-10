@@ -1,7 +1,7 @@
 module Halb
   class HAProxy < AbstractLoadBalancer
-    def initialize(host, user, ssh_keys, cluster_ip, proxy_names)
-      super(host, user, ssh_keys)
+    def initialize(fqdn, user, ssh_keys, cluster_ip, proxy_names)
+      super(fqdn, user, ssh_keys)
       @cluster_ip, @proxy_names = cluster_ip, proxy_names
     end
 
@@ -11,7 +11,7 @@ module Halb
     end
 
     def active?
-      get_output_of(@cluster_ip, 'hostname').strip == @host
+      get_output_of(@cluster_ip, 'hostname --fqdn').strip == @fqdn
     end
 
     def in_maintenance_command(machine)
